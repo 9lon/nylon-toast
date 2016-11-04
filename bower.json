@@ -1,0 +1,33 @@
+{
+  "name": "nylon-toast",
+  "homepage": "https://github.com/9lon/nylon-toast",
+  "authors": [
+    "Kitz-Parnupat <dainokung2535@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "gl-font": "9lon-gl-font#^0.0.5"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
+    "paper-toast": "PolymerElements/paper-toast#^1.3.0",
+    "paper-spinner": "PolymerElements/paper-spinner#^1.2.1",
+    "iron-icon": "PolymerElements/iron-icon#^1.0.12",
+    "paper-button": "PolymerElements/paper-button#^1.0.14",
+    "paper-item": "PolymerElements/paper-item#^1.2.1",
+    "iron-icons": "PolymerElements/iron-icons#^1.1.3"
+  }
+}

@@ -1,0 +1,53 @@
+
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="./src/nylon-toast.html">
+<link rel="import" href="bower_components/paper-button/paper-button.html">
+
+<dom-module id="nylon-page">
+    <template>
+        <style>
+            header,section{
+                padding:10px;
+            }
+        </style>
+            <paper-button on-tap="openToastLoad" raised>Load</paper-button>
+            <paper-button on-tap="openToastError" raised>Error</paper-button>
+            <paper-button on-tap="openToastDialog" raised>Dailog</paper-button>
+            <paper-button on-tap="openToastStatus" raised>Success</paper-button>
+           
+    </template>
+    <script>
+        Polymer({
+            is: 'nylon-page',
+            openToastLoad:function(){
+                this.fire('toast',{status:'load'});
+            },
+            openToastStatus:function(){
+                 this.fire('toast',{status:'success',text:'บันทึกสำเร็จ', 
+                 callback:function(){
+                }
+              });
+            },
+            openToastError:function(){
+                this.fire('toast',{status:'connectError',text:'Error code 404 not found',
+                callback:function(){
+                    //console.log('test');
+                }})
+            },
+            openToastDialog:function(){
+                console.log('openDialog');
+                this.fire('toast',{
+                    status:'dialog',
+                    text:'ต้องการลบข้อมูลใช่หรือไม่ ?',
+                    confirmed:this._deleteData,
+                    el: this,
+                    data:''
+                })
+            },
+            _deleteData:function(result,detail){
+                console.log('result',result);
+                console.log('detail',detail);
+            }
+        });
+    </script>
+</dom-module>
