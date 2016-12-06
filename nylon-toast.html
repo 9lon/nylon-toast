@@ -3,10 +3,10 @@
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-item/paper-icon-item.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
-<link rel="import" href="./../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../paper-toast/paper-toast.html">
 <link rel="import" href="../gl-font/gl-rsu-font.html">
-
+<link rel="import" href="../gl-font/gl-cschatthai-font.html">
 
 <dom-module id="nylon-toast">
     <style>
@@ -16,9 +16,9 @@
         .toastLoading, .toastSuccess, .toastWarning, .toastError,.toastDialog{
             width: 100%;
             text-align: center;
-            font-size: 22px;
-            font-family: 'rsubold', sans-serif;
+			font-family: 'rsubold', sans-serif;
             -webkit-font-smoothing: antialiased;
+            font-size: 22px;
             color: white;
         }
 	    .toastLoading>span{
@@ -46,7 +46,9 @@
 			background-color: #337ab7;
 		}
 		.toastConnectError>span{
-			font-size: 16px;
+			font-family: 'rsubold', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            font-size: 22px;
 		}
 		iron-icon{
 			height: auto;
