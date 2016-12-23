@@ -11,11 +11,11 @@
             }
         </style>
             <paper-button on-tap="openToastLoad" raised>Load</paper-button>
-            <paper-button on-tap="openToastError" raised>Error</paper-button>
+            <paper-button on-tap="openToastErrorConenct" raised>ErrorConecnt</paper-button>
             <paper-button on-tap="openToastDialog" raised>Dailog</paper-button>
             <paper-button on-tap="openToastStatus" raised>Success</paper-button>
             <paper-button on-tap="openToastWarning" raised>Warning</paper-button>
-            <paper-button on-tap="openToastDanger" raised>Danger</paper-button>
+            <paper-button on-tap="openToastError" raised>Error</paper-button>
            
     </template>
     <script>
@@ -36,13 +36,13 @@
                 }
               });
             },
-            openToastDanger:function(){
+            openToastError:function(){
                  this.fire('toast',{status:'error',text:'Error code 404 not found',
                  callback:function(){
                 }
               });
             },
-            openToastError:function(){
+            openToastErrorConenct:function(){
                 this.fire('toast',{status:'connectError',text:'Error code 404 not found',
                 callback:function(){
                     //console.log('test');
