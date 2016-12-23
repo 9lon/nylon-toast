@@ -14,6 +14,8 @@
             <paper-button on-tap="openToastError" raised>Error</paper-button>
             <paper-button on-tap="openToastDialog" raised>Dailog</paper-button>
             <paper-button on-tap="openToastStatus" raised>Success</paper-button>
+            <paper-button on-tap="openToastWarning" raised>Warning</paper-button>
+            <paper-button on-tap="openToastDanger" raised>Danger</paper-button>
            
     </template>
     <script>
@@ -24,6 +26,18 @@
             },
             openToastStatus:function(){
                  this.fire('toast',{status:'success',text:'บันทึกสำเร็จ', 
+                 callback:function(){
+                }
+              });
+            },
+            openToastWarning:function(){
+                 this.fire('toast',{status:'warning',
+                 callback:function(){
+                }
+              });
+            },
+            openToastDanger:function(){
+                 this.fire('toast',{status:'danger',text:'Error code 404 not found',
                  callback:function(){
                 }
               });

@@ -4,6 +4,7 @@
 <link rel="import" href="../bower_components/paper-item/paper-icon-item.html">
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icons/notification-icons.html">
 <link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../bower_components/gl-font/gl-rsu-font.html">
 <link rel="import" href="../bower_components/gl-font/gl-cschatthai-font.html">
@@ -121,10 +122,8 @@
                 'toast': '_toastManage',
             },
             _toastManage:function(e){
-                console.log('_toastManage');
 				this.data = e.detail.status;
-				//console.log('_toastManage');
-				//console.log(e.detail.status);
+				
 				if(e.detail.status == 'load'){
 					//console.log('load');
 					this.openToastLoading();
@@ -137,16 +136,33 @@
 				}
 				if(e.detail.status == 'success'){
 					this.closeToastLoading(e.detail.callback);
-					console.log(e.detail.text);
 					//Polymer.dom(this.root).setAttribute('class', 'toastSuccess')
 					this.status = {
 						class : 'toastSuccess',
 						icon : 'done',
 						content : e.detail.text || 'โหลดข้อมูลสำเร็จ'
 					}
+					this.timer = 800;
+				}
+				else if(e.detail.status == 'warning'){
+					this.status = {
+						class : 'toastWarning',
+						icon : 'warning',
+						content : e.detail.text || 'แจ้งเตือน !!'
+					}
+					this.timer = 2000;
+					this.openToastStatus();
+				}
+				else if(e.detail.status == 'danger'){
+					this.status = {
+						class : 'toastError',
+						icon : 'error',
+						content : e.detail.text || 'ผิดพลาด !!'
+					}
+					this.timer = 4000;
+					this.openToastStatus();
 				}
 				if(e.detail.status == 'connectError'){
-					console.log(e.detail.text);
 					this.status = {
 						content : e.detail.text
 					}
@@ -167,8 +183,7 @@
             },
             closeToastLoading:function(callback){
                 this.async(function(){
-					console.log('async');
-                    this.$.toastLoading.hide();
+                    // this.$.toastLoading.hide();
 					this.openToastStatus();
 					callback();
                 }.bind(this),500);
@@ -198,6 +213,9 @@
 			},
 			openToastStatus:function(){
 				this.$.toastStatus.open();
+				this.async(function(){
+					this.$.toastStatus.close();
+				}.bind(this),this.timer)
 			}
         });
     </script>
