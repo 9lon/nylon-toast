@@ -28,7 +28,19 @@ $ bower install nylon-toast --save
       }
     });
   },
+  openToastWarning:function(){
+     this.fire('toast',{status:'warning',
+     callback:function(){
+      }
+    });
+  },
   openToastError:function(){
+       this.fire('toast',{status:'error',text:'Error code 404 not found',
+       callback:function(){
+      }
+    });
+  },
+  openToastErrorConenct:function(){
       this.fire('toast',{status:'connectError',text:'Error code 404 not found', //คำสั่งสำหรับเปิด toast error
       callback:function(){
       }})
