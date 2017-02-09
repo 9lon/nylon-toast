@@ -142,7 +142,9 @@
 						icon : 'done',
 						content : e.detail.text || 'โหลดข้อมูลสำเร็จ'
 					}
-					this.timer = 800;
+					// console.log(e.detail.timer);
+					this.timer = e.detail.timer || 800;
+					console.log(this.timer);
 				}
 				else if(e.detail.status == 'warning'){
 					this.status = {
@@ -150,7 +152,7 @@
 						icon : 'warning',
 						content : e.detail.text || 'แจ้งเตือน !!'
 					}
-					this.timer = 2000;
+					this.timer = e.detail.timer || 2000;
 					this.openToastStatus();
 				}
 				else if(e.detail.status == 'error'){
@@ -159,7 +161,7 @@
 						icon : 'error',
 						content : e.detail.text || 'ผิดพลาด !!'
 					}
-					this.timer = 4000;
+					this.timer = e.detail.timer || 4000;
 					this.openToastStatus();
 				}
 				if(e.detail.status == 'connectError'){
