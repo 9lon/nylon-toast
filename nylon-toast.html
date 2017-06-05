@@ -8,91 +8,139 @@
 <link rel="import" href="../paper-toast/paper-toast.html">
 <link rel="import" href="../gl-font/gl-rsu-font.html">
 <link rel="import" href="../gl-font/gl-cschatthai-font.html">
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-spinner/paper-spinner.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-item/paper-icon-item.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-icons/notification-icons.html">
+<link rel="import" href="../paper-toast/paper-toast.html">
+<link rel="import" href="../gl-font/gl-rsu-font.html">
+<link rel="import" href="../gl-font/gl-cschatthai-font.html">
 
 <dom-module id="nylon-toast">
-    <style>
-      paper-spinner{
-			--paper-spinner-stroke-width: 3px;
-		}
-        .toastLoading, .toastSuccess, .toastWarning, .toastError,.toastDialog{
-            width: 100%;
-            text-align: center;
-			font-family: 'rsubold', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            font-size: 22px;
-            color: white;
-        }
-	    .toastLoading>span{
-			padding-left:10px; 
-			position:relative; 
-			bottom: 6px;
-		}
-		.toastSuccess{
-			background-color: #5cb85c;
-		}
-		.toastSuccess>span{
-			padding-left:10px;
-		}
-		.toastWarning{
-			background-color: #f0ad4e;
-		}
-		.toastError,.toastConnectError{
-			background-color: #d9534f;
-		}
-		.toastConnectError,.toastDialog{
-			width: 100%;
-			text-align: center;
-		}
-		.toastDialog{
-			background-color: #337ab7;
-		}
-		.toastConnectError>span{
-			font-family: 'rsubold', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            font-size: 22px;
-		}
-		iron-icon{
-			height: auto;
-			width: 30px;
-			margin-bottom: 5px;
-		}
-		.buttonDailog{
-			height: 30px;
-			width: 10px !important;
-			font-size: 20px !important;
-			border-radius: 2px;
-			font-family: 'rsubold', sans-serif;
-		}
-		/*paper-button:hover{
+
+	<template>
+		<style>
+			:root {
+				--success : #5cb85c; 
+				
+				/*#5cb85c*/
+				--error : #d9534f;
+				--warning:#f0ad4e;
+				--dialog: #337ab7;
+
+				--btn-yes : #5cb85c; 
+				--btn-no : #d9534f; 
+			}
+
+			paper-spinner {
+				--paper-spinner-stroke-width: 3px;
+			}
+
+			.toastLoading,
+			.toastSuccess,
+			.toastWarning,
+			.toastError,
+			.toastDialog {
+				width: 100%;
+				text-align: center;
+				font-family: 'rsubold', sans-serif;
+				-webkit-font-smoothing: antialiased;
+				font-size: 22px;
+				color: white;
+				 @apply --toast;
+			}
+
+			.toastLoading>span {
+				padding-left: 10px;
+				position: relative;
+				bottom: 6px;
+			}
+
+			.toastSuccess {
+				background-color:var(--success);
+			}
+
+			.toastSuccess>span {
+				padding-left: 10px;
+			}
+
+			.toastWarning {
+				background-color: var(--warning);
+			}
+
+			.toastError,
+			.toastConnectError {
+				background-color: var(--error);
+			}
+
+			.toastConnectError,
+			.toastDialog {
+				width: 100%;
+				text-align: center;
+			}
+
+			.toastDialog {
+				background-color: var(--dialog);
+			}
+
+			.toastConnectError>span {
+				font-family: 'rsubold', sans-serif;
+				-webkit-font-smoothing: antialiased;
+				font-size: 22px;
+				 @apply --toastConnectErrorSpan;
+			}
+
+			iron-icon {
+				height: auto;
+				width: 30px;
+				margin-bottom: 5px;
+			}
+
+			.buttonDailog {
+				height: 30px;
+				width: 10px !important;
+				font-size: 20px !important;
+				border-radius: 2px;
+				font-family: 'rsubold', sans-serif;
+				 @apply --buttonDailog;
+			}
+			/*paper-button:hover{
 			background-color: #f0ad4e;
 		}*/
-		.btYes{
-			background-color: #5cb85c;
-		}
-		.btNo{
-			background-color: #d9534f;
-		}
-		#bgToast{
-			position: fixed;
-			background-color: #000;
-			width:100%;
-			height:100%;
-			top:0;
-			right:0;
-			opacity: 0.5;
-			z-index: 2;
-		}
-    </style>
-    <template>
+
+			.btYes {
+				background-color: var(--btn-yes);
+				 @apply --btyes;
+			}
+
+			.btNo {
+				background-color: var(--btn-no);
+				@apply --btno;
+			}
+
+			#bgToast {
+				position: fixed;
+				background-color: #000;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				right: 0;
+				opacity: 0.5;
+				z-index: 2;
+			}
+		</style>
 		<div id="bgToast" hidden$="[[!opened]]"></div>
 		<div id="bgToast" hidden$="[[!openedload]]"></div>
-        <paper-toast class="toastLoading" id="toastLoading" opened="{{openedload}}" positionTarget duration="0" text="">
-                <paper-spinner active></paper-spinner>
-                <span>
+		<paper-toast class="toastLoading" id="toastLoading" opened="{{openedload}}" positionTarget duration="0" text="">
+			<paper-spinner active></paper-spinner>
+			<span>
                     {{status.content}}
                 </span>
-        </paper-toast>
-		
+		</paper-toast>
+
 		<paper-toast class="toastDialog" id="toastDialog" opened="{{opened}}" duration="0">
 			<span>{{status.content}}</span>
 			<div style="padding: 10px 20px 10px 20px;">
@@ -113,112 +161,112 @@
 			</span>
 		</paper-toast>
 
-        <content></content>
-    </template>
-    <script>
-        Polymer({
-            is: 'nylon-toast',
-            listeners: {
-                'toast': '_toastManage',
-            },
-            _toastManage:function(e){
+		<content></content>
+	</template>
+	<script>
+		Polymer({
+			is: 'nylon-toast',
+			listeners: {
+				'toast': '_toastManage',
+			},
+			_toastManage: function (e) {
 				this.data = e.detail.status;
-				
-				if(e.detail.status == 'load'){
+
+				if (e.detail.status == 'load') {
 					//console.log('load');
 					this.openToastLoading();
 					this.status = {
-						content : e.detail.text || 'กำลังโหลด...'
+						content: e.detail.text || 'กำลังโหลด...'
 					}
 				}
-				else if(e.detail.status == 'loadSuccess'){
+				else if (e.detail.status == 'loadSuccess') {
 					this.closeToastLoading();
 				}
-				if(e.detail.status == 'success'){
+				if (e.detail.status == 'success') {
 					this.closeToastLoading(e.detail.callback);
 					//Polymer.dom(this.root).setAttribute('class', 'toastSuccess')
 					this.status = {
-						class : 'toastSuccess',
-						icon : 'done',
-						content : e.detail.text || 'โหลดข้อมูลสำเร็จ'
+						class: 'toastSuccess',
+						icon: 'done',
+						content: e.detail.text || 'โหลดข้อมูลสำเร็จ'
 					}
 					// console.log(e.detail.timer);
 					this.timer = e.detail.timer || 800;
 					// console.log(this.timer);
 				}
-				else if(e.detail.status == 'warning'){
+				else if (e.detail.status == 'warning') {
 					this.status = {
-						class : 'toastWarning',
-						icon : 'warning',
-						content : e.detail.text || 'แจ้งเตือน !!'
+						class: 'toastWarning',
+						icon: 'warning',
+						content: e.detail.text || 'แจ้งเตือน !!'
 					}
 					this.timer = e.detail.timer || 2000;
 					this.openToastStatus();
 				}
-				else if(e.detail.status == 'error'){
+				else if (e.detail.status == 'error') {
 					this.status = {
-						class : 'toastError',
-						icon : 'error',
-						content : e.detail.text || 'ผิดพลาด !!'
+						class: 'toastError',
+						icon: 'error',
+						content: e.detail.text || 'ผิดพลาด !!'
 					}
 					this.timer = e.detail.timer || 4000;
 					this.openToastStatus();
 				}
-				if(e.detail.status == 'connectError'){
+				if (e.detail.status == 'connectError') {
 					this.status = {
-						content : e.detail.text
+						content: e.detail.text
 					}
 					this.$.toastErrorConnect.open();
 				}
-				if(e.detail.status == 'dialog'){
+				if (e.detail.status == 'dialog') {
 					this.status = {
-						class : 'toastDialog',
-						icon : 'done',
-						content : e.detail.text || 'โหลดข้อมูลสำเร็จ'
+						class: 'toastDialog',
+						icon: 'done',
+						content: e.detail.text || 'โหลดข้อมูลสำเร็จ'
 					}
 
 					this.openToastDialog(e.detail)
 				}
 			},
-			openToastLoading:function(){
-                this.$.toastLoading.toggle();
-            },
-            closeToastLoading:function(callback){
-                this.async(function(){
-                    // this.$.toastLoading.hide();
+			openToastLoading: function () {
+				this.$.toastLoading.toggle();
+			},
+			closeToastLoading: function (callback) {
+				this.async(function () {
+					// this.$.toastLoading.hide();
 					this.openToastStatus();
 					callback();
-                }.bind(this),500);
-            },
-			openToastDialog:function(detail){
+				}.bind(this), 500);
+			},
+			openToastDialog: function (detail) {
 				this.$.toastDialog.open();
 				this.detailToastDialog = detail;
-				
+
 			},
-			resultToastDialog:function(e){
-				
+			resultToastDialog: function (e) {
+
 				var result = true;
-				if(e.currentTarget.getAttribute('confirm')==null){
+				if (e.currentTarget.getAttribute('confirm') == null) {
 					result = false;
 				}
-				this.detailToastDialog.confirmed(result,this.detailToastDialog);
+				this.detailToastDialog.confirmed(result, this.detailToastDialog);
 				this.closeToastDialog();
 			},
-			closeToastDialog:function(){
+			closeToastDialog: function () {
 				this.$.toastDialog.hide();
 			},
-			openToastConnectError:function(){
+			openToastConnectError: function () {
 				this.$.toastErrorConnect.open();
 			},
-			closeToastConnectError:function(){
+			closeToastConnectError: function () {
 				this.$.toastErrorConnect.hide();
 			},
-			openToastStatus:function(){
+			openToastStatus: function () {
 				this.$.toastStatus.open();
-				this.async(function(){
+				this.async(function () {
 					this.$.toastStatus.close();
-				}.bind(this),this.timer)
+				}.bind(this), this.timer)
 			}
-        });
-    </script>
+		});
+	</script>
 </dom-module>
